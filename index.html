@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#103e43">
+<title>Chetan &amp; Ishyankita — Special Dates</title>
+<style>
+:root{--teal:#103e43;--cream:#f5ecd8;--gold:#c7a66a}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-snap-type:y mandatory;background:#061f25}
+body{margin:0;background:#061f25;color:var(--cream);font-family:Georgia,'Times New Roman',serif}
+section{height:100svh;min-height:520px;scroll-snap-align:start;position:relative;overflow:hidden}
+.intro{display:grid;place-items:center;text-align:center;padding:1.5rem;background:radial-gradient(ellipse at center,#1c5557,#082d33 72%)}
+.intro:before,.intro:after{content:"✦  ✧  ✦  ✧  ✦";position:absolute;color:var(--gold);letter-spacing:.8rem;opacity:.65;font-size:1rem;left:0;right:0;text-align:center}
+.intro:before{top:9%}.intro:after{bottom:9%}
+.intro h1{position:relative;z-index:1;font-weight:400;font-style:italic;font-size:clamp(2.7rem,8vw,6rem);line-height:1.08;margin:0;color:#f8eed9}
+.scratch-page{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;padding:1.5rem;background:radial-gradient(ellipse at center,#1c5557,#082d33 75%);text-align:center}
+.ticket{position:relative;width:min(76vw,330px);height:190px;border:2px solid var(--gold);border-radius:12px;overflow:hidden;box-shadow:0 14px 40px #0007;background:#f5ecd8}
+.ticket img{width:100%;height:100%;object-fit:cover;object-position:center 47%;display:block}
+.ticket canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.ticket-hint{position:absolute;bottom:8px;left:0;right:0;pointer-events:none;color:#fff8e8;text-shadow:0 1px 4px #000;font:11px Georgia,serif;letter-spacing:.13em;text-transform:uppercase}
+.date{font-size:clamp(1.7rem,5vw,2.7rem);font-style:italic;color:#f8eed9;margin:0}
+
+.invitation-page{background:#082d33;display:grid;place-items:center}
+.invitation-art{position:relative;width:100%;height:100%;display:grid;place-items:center;overflow:hidden}
+.invitation-art img{display:block;width:100%;height:100%;object-fit:contain}
+#scratchCanvas{position:absolute;touch-action:none;cursor:crosshair;z-index:3}
+.date-underlay{position:absolute;z-index:2;display:flex;align-items:center;justify-content:center;text-align:center;color:#123f43;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:600;white-space:nowrap;pointer-events:none}
+
+.video-slide{background:#061f25;display:grid;place-items:center}
+.video-slide video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#061f25}
+.map-page{background:#f5ecd8;color:#123f43;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.25rem;text-align:center;gap:1rem}
+.map-page h2{font-size:clamp(2rem,6vw,3.7rem);font-weight:400;font-style:italic;margin:0}
+.map-frame{width:min(100%,900px);height:55vh;min-height:240px;border:2px solid var(--gold);border-radius:8px;overflow:hidden}
+.map-frame iframe{width:100%;height:100%;border:0}
+.map-link{color:#123f43;text-decoration:underline}
+@media(max-height:650px){.ticket{height:160px;width:min(76vw,290px)}.scratch-page{gap:1rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+
+<section class="video-slide" aria-label="Video slide 1"><video src="slide-1.mp4" autoplay muted loop playsinline preload="metadata"></video></section>
+<section class="invitation-page" aria-label="Invitation scratch-card slide">
+  <div class="invitation-art" id="invitationArt">
+    <img id="invitationImage" src="invitation-scratch-slide.png" alt="Ornate teal and cream invitation with the message Some dates are meant to be discovered and To reveal our Special Dates">
+    <div class="date-underlay" id="dateUnderlay">5th December</div>
+    <canvas id="scratchCanvas" aria-label="Scratch the gold patch to reveal 5th December"></canvas>
+  </div>
+</section>
+
+<section class="video-slide" aria-label="Video slide 2"><video src="slide-2.mp4" autoplay muted loop playsinline preload="metadata"></video></section>
+<section class="video-slide" aria-label="Video slide 3"><video src="slide-3.mp4" autoplay muted loop playsinline preload="metadata"></video></section>
+<section class="video-slide" aria-label="Video slide 4"><video src="slide-4.mp4" autoplay muted loop playsinline preload="metadata"></video></section>
+<section class="video-slide" aria-label="Video slide 5"><video src="slide-5.mp4" autoplay muted loop playsinline preload="metadata"></video></section>
+<section class="video-slide" aria-label="Video slide 6"><video src="slide-6.mp4" autoplay muted loop playsinline preload="metadata"></video></section>
+
+<section class="map-page" aria-label="Location map">
+  <h2>Narwar Lakefront Resort</h2>
+  <div class="map-frame"><iframe title="Narwar Lakefront Resort map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Narwar%20Lakefront%20Resort&t=&z=14&ie=UTF8&iwloc=&output=embed" allowfullscreen></iframe></div>
+  <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Narwar+Lakefront+Resort" target="_blank" rel="noopener">Open in Google Maps</a>
+</section>
+
+<script>
+(() => {
+  const art=document.getElementById('invitationArt');
+  const img=document.getElementById('invitationImage');
+  const canvas=document.getElementById('scratchCanvas');
+  const date=document.getElementById('dateUnderlay');
+  const ctx=canvas.getContext('2d',{willReadFrequently:true});
+  let drawing=false,last=null,cleared=false;
+  // Coordinates correspond to the gold scratch area in the supplied invitation artwork.
+  function layout(){
+    const artRect=art.getBoundingClientRect();
+    const naturalW=img.naturalWidth||928, naturalH=img.naturalHeight||1650;
+    const scale=Math.min(artRect.width/naturalW,artRect.height/naturalH);
+    const w=naturalW*scale,h=naturalH*scale;
+    const left=(artRect.width-w)/2,top=(artRect.height-h)/2;
+    // Gold scratch patch inside the central ornate ticket.
+    const x=left+w*0.345,y=top+h*0.461,ww=w*0.31,hh=h*0.065;
+    canvas.style.left=x+'px';canvas.style.top=y+'px';
+    canvas.style.width=ww+'px';canvas.style.height=hh+'px';
+    date.style.left=x+'px';date.style.top=y+'px';date.style.width=ww+'px';date.style.height=hh+'px';
+    date.style.fontSize=Math.max(10,hh*0.29)+'px';date.style.textShadow='0 0 1px #f5ecd8';
+    const dpr=Math.max(1,window.devicePixelRatio||1);
+    canvas.width=Math.round(ww*dpr);canvas.height=Math.round(hh*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.globalCompositeOperation='source-over';
+    const g=ctx.createLinearGradient(0,0,ww,hh);
+    g.addColorStop(0,'#d8c08b');g.addColorStop(.5,'#b49a62');g.addColorStop(1,'#e6d3a4');
+    ctx.fillStyle=g;ctx.fillRect(0,0,ww,hh);
+    // Subtle metallic grain.
+    ctx.fillStyle='rgba(255,250,230,.22)';
+    for(let i=0;i<ww;i+=8)for(let j=0;j<hh;j+=7){ctx.fillRect(i+Math.random()*2,j+Math.random()*2,1,1);}
+    // Make the scratch coating visibly distinct and label it; the date sits underneath.
+    ctx.fillStyle='#173f43';
+    ctx.textAlign='center';
+    ctx.textBaseline='middle';
+    ctx.font='600 '+Math.max(9,hh*.22)+'px Georgia';
+    ctx.fillText('SCRATCH TO REVEAL',ww/2,hh/2);
+    ctx.globalCompositeOperation='destination-out';
+  }
+  function point(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};}
+  function scratch(e){
+    const p=point(e);
+    ctx.beginPath();
+    if(last){ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.lineWidth=Math.max(12,canvas.clientHeight*.34);ctx.lineCap='round';ctx.lineJoin='round';ctx.stroke();}
+    ctx.arc(p.x,p.y,Math.max(6,canvas.clientHeight*.17),0,Math.PI*2);ctx.fill();
+    last=p;
+    const pixels=ctx.getImageData(0,0,canvas.width,canvas.height).data;let clear=0,total=0;
+    for(let i=3;i<pixels.length;i+=4*12){total++;if(pixels[i]<30)clear++;}
+    if(clear/total>.52&&!cleared){
+      cleared=true;canvas.style.transition='opacity .45s';canvas.style.opacity='0';
+      setTimeout(()=>canvas.style.display='none',500);
+    }
+  }
+  canvas.addEventListener('pointerdown',e=>{drawing=true;last=null;canvas.setPointerCapture(e.pointerId);scratch(e);});
+  canvas.addEventListener('pointermove',e=>{if(drawing)scratch(e);});
+  const stop=()=>{drawing=false;last=null;};
+  canvas.addEventListener('pointerup',stop);canvas.addEventListener('pointercancel',stop);
+  if(img.complete)layout();else img.addEventListener('load',layout);
+  window.addEventListener('resize',()=>{if(!cleared)layout();});
+  const videos=[...document.querySelectorAll('video')];
+  if('IntersectionObserver'in window){
+    const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+      if(entry.isIntersecting)entry.target.play().catch(()=>{});else entry.target.pause();
+    }),{threshold:.35});
+    videos.forEach(v=>observer.observe(v));
+  }
+})();
+</script>
+</body>
+</html>
