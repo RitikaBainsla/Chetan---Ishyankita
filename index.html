@@ -113,12 +113,14 @@ body.waiting-to-open .first-combined-slide{height:100svh;min-height:100svh;max-h
 #openingVideoSlide #tapOpen:active{background:rgba(90,75,52,.95)}
 
 
-.map-page{height:auto;min-height:0;justify-content:center;padding:1rem 1rem 1.25rem;gap:.75rem;overflow:hidden}
-.map-page h2{flex:0 0 auto}
-.map-frame{width:min(100%,900px);height:clamp(220px,45svh,480px);min-height:220px;flex:0 0 auto}
-.map-link{margin:0 0 .25rem;flex:0 0 auto}
-.map-page .slide-watermark{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:fill!important;pointer-events:none!important}
+.map-page{height:fit-content!important;min-height:0!important;max-height:none!important;box-sizing:border-box!important;justify-content:flex-start!important;padding:1rem 1rem .75rem!important;gap:.5rem!important;overflow:hidden!important;flex:none!important}
+.map-page h2{flex:0 0 auto;margin:0!important;padding:0!important;line-height:1.15}
+.map-frame{width:min(100%,900px);height:clamp(200px,32svh,340px)!important;min-height:200px!important;max-height:340px!important;flex:0 0 auto;margin:0!important}
+.map-link{margin:0!important;padding:0 0 .1rem!important;flex:0 0 auto;line-height:1.2}
+.map-page .slide-watermark{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:fill!important;pointer-events:none!important;margin:0!important;padding:0!important}
 .map-page .slide-watermark{z-index:30!important;opacity:.48!important}
+/* Keep the map section content-height instead of a full-screen slide. */
+section.map-page{height:fit-content!important;min-height:0!important;max-height:none!important;margin:0!important}
 
 </style>
 </head>
