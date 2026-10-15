@@ -1,8 +1,8 @@
-SPECIAL DATES WEBSITE
+SPECIAL DATES WEBSITE — UPDATED OPENING VIDEO
 
-The website opens directly on the opening video. Nothing appears before it.
-“TAP TO OPEN” is overlaid on the video in a pill button. The opening screen cannot be scrolled.
-After the visitor taps, the video plays; when it finishes, the Chetan and Ishyankita invitation
-appears and normal scrolling is enabled for the rest of the website.
-
-All files are together in this folder.
+The newest uploaded Opening video.mp4 replaces the previous opening video.
+The opening video is shown as an overlay over the first wedding invitation slide.
+“TAP TO OPEN” is visible before playback; the video starts only when tapped.
+When the video ends, the overlay fades away to reveal the invitation beneath it.
+The watermark, falling petals, scratch card, remaining videos, and Google Maps remain.
+All files are in this one folder.

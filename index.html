@@ -33,6 +33,22 @@ section{height:100svh;min-height:520px;scroll-snap-align:start;position:relative
 .date-underlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:#f7e8c2;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:700;font-size:clamp(17px,3.3vh,31px);white-space:nowrap;pointer-events:none;z-index:1}
 #scratchCanvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair;z-index:3}
 
+
+.slide-watermark{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;opacity:.22;mix-blend-mode:screen;pointer-events:none;z-index:9}
+.petal-layer{z-index:8}
+.opening-video-screen .tap-open{z-index:20}
+
+.first-combined-slide{position:relative;background:#fbf8ed;display:grid;place-items:center}
+.first-combined-slide>img:not(.slide-watermark){width:100%;height:100%;object-fit:contain;display:block}
+.opening-video-overlay{position:absolute;inset:0;z-index:15;background:#000;display:grid;place-items:center;overflow:hidden}
+.opening-video-overlay video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
+.opening-video-overlay .tap-open{position:absolute;left:50%;bottom:8%;transform:translateX(-50%);z-index:20;border:1.5px solid rgba(255,255,255,.92);border-radius:999px;background:rgba(48,43,34,.72);color:#fff;padding:1.1rem 2.6rem;font:700 1rem Arial,sans-serif;letter-spacing:.18em;white-space:nowrap;cursor:pointer}
+.opening-video-overlay .video-start-note{display:none}
+.opening-video-overlay.video-finished{opacity:0;pointer-events:none;transition:opacity .65s ease}
+
+.image-slide{background:#fbf8ed;display:grid;place-items:center}
+.image-slide>img:not(.slide-watermark){width:100%;height:100%;object-fit:contain;display:block}
+
 .video-slide{background:#061f25;display:grid;place-items:center}
 .video-slide video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#061f25}
 
@@ -40,8 +56,8 @@ section{height:100svh;min-height:520px;scroll-snap-align:start;position:relative
 50%{transform:translateX(-50%) scale(1.045)}}
 #openingVideoSlide video{object-fit:contain}
 .video-start-note{position:absolute;z-index:2;bottom:7%;left:0;right:0;text-align:center;color:#f7e8c2;font-style:italic;font-size:1rem;text-shadow:0 2px 5px #000;pointer-events:none}
-.site-watermark{position:fixed;inset:0;width:100vw;height:100vh;object-fit:fill;opacity:.15;mix-blend-mode:screen;pointer-events:none;z-index:30}
-body.waiting-to-open{overflow:hidden}
+
+body.waiting-to-open{height:100svh;overflow:hidden;overscroll-behavior:none}
 
 
 .cover-slide{background:#fbf8ed;display:grid;place-items:center}
@@ -68,11 +84,11 @@ body.waiting-to-open .petal-layer{display:none}
 .video-slide video{z-index:0}
 .invitation-art,.image-slide img,.map-page>*{position:relative}
 
-.map-page{background:#f5ecd8;color:#123f43;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.25rem;text-align:center;gap:1rem}
-.map-page h2{font-size:clamp(2rem,6vw,3.7rem);font-weight:400;font-style:italic;margin:0}
-.map-frame{width:min(100%,900px);height:55vh;min-height:240px;border:2px solid var(--gold);border-radius:8px;overflow:hidden}
+.map-page{position:relative;background:#f5ecd8;color:#123f43;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.25rem;text-align:center;gap:1rem}
+.map-page h2{position:relative;z-index:10;font-size:clamp(2rem,6vw,3.7rem);font-weight:400;font-style:italic;margin:0}
+.map-frame{position:relative;z-index:10;width:min(100%,900px);height:55vh;min-height:240px;border:2px solid var(--gold);border-radius:8px;overflow:hidden}
 .map-frame iframe{width:100%;height:100%;border:0}
-.map-link{color:#123f43;text-decoration:underline}
+.map-link{position:relative;z-index:10;color:#123f43;text-decoration:underline}
 @media(max-height:650px){.ticket{height:160px;width:min(76vw,290px)}.scratch-page{gap:1rem}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
@@ -80,14 +96,16 @@ body.waiting-to-open .petal-layer{display:none}
 <body class="waiting-to-open">
 
 
-<section class="video-slide petal-slide opening-video-screen" data-palette="gold" id="openingVideoSlide" aria-label="Opening video">
-  <video id="openingVideo" src="opening-video.mp4" muted playsinline preload="metadata"></video>
-  <button class="tap-open" id="tapOpen" type="button">TAP TO OPEN</button>
-  <div class="video-start-note" id="videoStartNote" aria-live="polite"></div>
-</section>
-<section class="image-slide petal-slide" data-palette="gold" aria-label="Chetan and Ishyankita wedding invitation">
+<section class="image-slide petal-slide first-combined-slide" data-palette="gold" id="firstCombinedSlide" aria-label="Opening video over wedding invitation">
   <img src="opening-invitation.jpg" alt="Wedding invitation for Chetan and Ishyankita">
+  <div class="opening-video-overlay" id="openingVideoSlide">
+    <video id="openingVideo" src="opening-video.mp4" muted playsinline preload="metadata"></video>
+    <button class="tap-open" id="tapOpen" type="button">TAP TO OPEN</button>
+    <div class="video-start-note" id="videoStartNote" aria-live="polite"></div>
+  </div>
+  <img class="slide-watermark" src="watermark.png" alt="" aria-hidden="true">
 </section>
+
 <section class="invitation-page petal-slide" data-palette="teal" aria-label="Invitation and interactive scratch card">
   <div class="invitation-art" id="invitationArt">
     <img id="invitationImage" src="invitation-scratch-slide.png" alt="Ornate invitation reading Some dates are meant to be discovered and To reveal our Special Dates">
@@ -98,21 +116,34 @@ body.waiting-to-open .petal-layer{display:none}
       <canvas id="scratchCanvas" aria-label="Scratch the ticket to reveal 5th December"></canvas>
     </div>
   </div>
+
+<img class="slide-watermark" src="watermark.png" alt="" aria-hidden="true">
 </section>
 
-<section class="video-slide petal-slide" data-palette="pink" aria-label="Video slide 2"><video src="slide-2.mp4" autoplay muted loop playsinline preload="metadata"></video></section>
-<section class="video-slide petal-slide" data-palette="gold" aria-label="Video slide 3"><video src="slide-3.mp4" autoplay muted loop playsinline preload="metadata"></video></section>
-<section class="video-slide petal-slide" data-palette="cream" aria-label="Video slide 4"><video src="slide-4.mp4" autoplay muted loop playsinline preload="metadata"></video></section>
-<section class="video-slide petal-slide" data-palette="teal" aria-label="Video slide 5"><video src="slide-5.mp4" autoplay muted loop playsinline preload="metadata"></video></section>
-<section class="video-slide petal-slide" data-palette="pink" aria-label="Video slide 6"><video src="slide-6.mp4" autoplay muted loop playsinline preload="metadata"></video></section>
+<section class="video-slide petal-slide" data-palette="pink" aria-label="Video slide 2"><video src="slide-2.mp4" autoplay muted loop playsinline preload="metadata"></video>
+<img class="slide-watermark" src="watermark.png" alt="" aria-hidden="true">
+</section>
+<section class="video-slide petal-slide" data-palette="gold" aria-label="Video slide 3"><video src="slide-3.mp4" autoplay muted loop playsinline preload="metadata"></video>
+<img class="slide-watermark" src="watermark.png" alt="" aria-hidden="true">
+</section>
+<section class="video-slide petal-slide" data-palette="cream" aria-label="Video slide 4"><video src="slide-4.mp4" autoplay muted loop playsinline preload="metadata"></video>
+<img class="slide-watermark" src="watermark.png" alt="" aria-hidden="true">
+</section>
+<section class="video-slide petal-slide" data-palette="teal" aria-label="Video slide 5"><video src="slide-5.mp4" autoplay muted loop playsinline preload="metadata"></video>
+<img class="slide-watermark" src="watermark.png" alt="" aria-hidden="true">
+</section>
+<section class="video-slide petal-slide" data-palette="pink" aria-label="Video slide 6"><video src="slide-6.mp4" autoplay muted loop playsinline preload="metadata"></video>
+<img class="slide-watermark" src="watermark.png" alt="" aria-hidden="true">
+</section>
 
 <section class="map-page petal-slide" data-palette="cream" aria-label="Location map">
   <h2>Narwar Lakefront Resort</h2>
   <div class="map-frame"><iframe title="Narwar Lakefront Resort map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Narwar%20Lakefront%20Resort&t=&z=14&ie=UTF8&iwloc=&output=embed" allowfullscreen></iframe></div>
   <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Narwar+Lakefront+Resort" target="_blank" rel="noopener">Open in Google Maps</a>
+
+<img class="slide-watermark" src="watermark.png" alt="" aria-hidden="true">
 </section>
 
-<img class="site-watermark" src="watermark.png" alt="" aria-hidden="true">
 <script>
 (() => {
   // Decorative petals are drawn in a palette that complements each slide.
@@ -191,21 +222,22 @@ body.waiting-to-open .petal-layer{display:none}
   setup();window.addEventListener('resize',setup);
   const tapOpen=document.getElementById('tapOpen');
   const openingVideo=document.getElementById('openingVideo');
+  const openingOverlay=document.getElementById('openingVideoSlide');
   const startNote=document.getElementById('videoStartNote');
-  const firstWebsiteSlide=document.querySelector('.image-slide');
   document.body.classList.add('waiting-to-open');
   tapOpen.addEventListener('click',()=>{
     tapOpen.style.display='none';
     openingVideo.currentTime=0;
     openingVideo.play().catch(()=>{
       tapOpen.style.display='block';
-      startNote.textContent='Tap to Open';
+      startNote.textContent='TAP TO OPEN';
       startNote.style.display='block';
     });
   });
   openingVideo.addEventListener('ended',()=>{
+    openingOverlay.classList.add('video-finished');
     document.body.classList.remove('waiting-to-open');
-    firstWebsiteSlide.scrollIntoView({behavior:'smooth',block:'start'});
+    setTimeout(()=>{openingOverlay.style.display='none';},700);
   });
   // Other slides play only while visible; the opening video is intentionally played once.
   const videos=[...document.querySelectorAll('video:not(#openingVideo)')];
