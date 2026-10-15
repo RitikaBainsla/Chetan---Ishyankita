@@ -1,8 +1,7 @@
-SPECIAL DATES WEBSITE — UPDATED OPENING VIDEO
+SPECIAL DATES WEBSITE — SCROLL AND WATERMARK FIX
 
-The newest uploaded Opening video.mp4 replaces the previous opening video.
-The opening video is shown as an overlay over the first wedding invitation slide.
-“TAP TO OPEN” is visible before playback; the video starts only when tapped.
-When the video ends, the overlay fades away to reveal the invitation beneath it.
-The watermark, falling petals, scratch card, remaining videos, and Google Maps remain.
-All files are in this one folder.
+- Removed mandatory scroll snapping so scrolling is smooth and continuous rather than jumping slide-to-slide.
+- Made the watermark more visible across all slides, including the final Google Maps slide.
+- Enlarged and vertically balanced the final map section to avoid excessive empty space.
+- The watermark does not block map controls or scratch-card interaction.
+All files are kept in this one folder.
