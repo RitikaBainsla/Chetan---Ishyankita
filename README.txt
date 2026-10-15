@@ -1,11 +1,8 @@
-SPECIAL DATES WEBSITE — COMPACT, FLAT FILES
+SPECIAL DATES WEBSITE
 
-All files are in this one folder. There is no separate videos/assets folder.
+The website opens directly on the opening video. Nothing appears before it.
+“TAP TO OPEN” is overlaid on the video in a pill button. The opening screen cannot be scrolled.
+After the visitor taps, the video plays; when it finishes, the Chetan and Ishyankita invitation
+appears and normal scrolling is enabled for the rest of the website.
 
-Open index.html in a modern browser. For best results, run a local server in this folder:
-python -m http.server 8000
-Then visit http://localhost:8000
-
-Videos are compressed to reduce the website download size. The invitation slide remains after video 1,
-the scratch ticket reveals “5th December”, “TO REVEAL OUR Special Dates” remains visible,
-and the Google Maps slide is at the end.
+All files are together in this folder.
