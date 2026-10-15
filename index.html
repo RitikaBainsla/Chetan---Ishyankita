@@ -113,9 +113,11 @@ body.waiting-to-open .first-combined-slide{height:100svh;min-height:100svh;max-h
 #openingVideoSlide #tapOpen:active{background:rgba(90,75,52,.95)}
 
 
-.map-page{min-height:100svh;height:auto;justify-content:center;padding:clamp(1rem,3vh,2rem) 1rem;gap:clamp(.8rem,2vh,1.25rem)}
-.map-frame{width:min(100%,900px);height:clamp(300px,58svh,620px);min-height:300px;flex:0 0 auto}
-.map-link{margin-bottom:1rem}
+.map-page{height:auto;min-height:0;justify-content:center;padding:1rem 1rem 1.25rem;gap:.75rem;overflow:hidden}
+.map-page h2{flex:0 0 auto}
+.map-frame{width:min(100%,900px);height:clamp(220px,45svh,480px);min-height:220px;flex:0 0 auto}
+.map-link{margin:0 0 .25rem;flex:0 0 auto}
+.map-page .slide-watermark{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:fill!important;pointer-events:none!important}
 .map-page .slide-watermark{z-index:30!important;opacity:.48!important}
 
 </style>
@@ -253,14 +255,18 @@ body.waiting-to-open .first-combined-slide{height:100svh;min-height:100svh;max-h
   const startNote=document.getElementById('videoStartNote');
   document.body.classList.add('waiting-to-open');
   tapOpen.addEventListener('click',()=>{
-    tapOpen.style.display='none';
     openingVideo.currentTime=0;
-    openingVideo.play().catch(()=>{
+    openingVideo.play().then(()=>{
+      tapOpen.style.display='none';
+      startNote.style.display='none';
+    }).catch(()=>{
       tapOpen.style.display='block';
-      startNote.textContent='TAP TO OPEN';
+      tapOpen.style.visibility='visible';
+      startNote.textContent='Tap to Open';
       startNote.style.display='block';
     });
   });
+  openingVideo.addEventListener('playing',()=>{tapOpen.style.display='none';startNote.style.display='none';});
   openingVideo.addEventListener('ended',()=>{
     openingOverlay.classList.add('video-finished');
     document.body.classList.remove('waiting-to-open');
