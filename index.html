@@ -125,6 +125,7 @@ section.map-page{height:fit-content!important;min-height:0!important;max-height:
 </style>
 </head>
 <body class="waiting-to-open">
+<audio id="backgroundSong" src="song.mp3" preload="auto" loop></audio>
 
 
 <section class="image-slide petal-slide first-combined-slide" data-palette="gold" id="firstCombinedSlide" aria-label="Opening video over wedding invitation">
@@ -158,6 +159,9 @@ section.map-page{height:fit-content!important;min-height:0!important;max-height:
 <img class="slide-watermark" src="watermark.png" alt="" aria-hidden="true">
 </section>
 <section class="video-slide petal-slide" data-palette="cream" aria-label="Video slide 4"><video src="slide-4.mp4" autoplay muted loop playsinline preload="metadata"></video>
+<img class="slide-watermark" src="watermark.png" alt="" aria-hidden="true">
+</section>
+<section class="video-slide petal-slide" data-palette="gold" aria-label="Video slide 7"><video src="slide-7.mp4" autoplay muted loop playsinline preload="metadata"></video>
 <img class="slide-watermark" src="watermark.png" alt="" aria-hidden="true">
 </section>
 <section class="video-slide petal-slide" data-palette="teal" aria-label="Video slide 5"><video src="slide-5.mp4" autoplay muted loop playsinline preload="metadata"></video>
@@ -256,8 +260,11 @@ section.map-page{height:fit-content!important;min-height:0!important;max-height:
   const openingOverlay=document.getElementById('openingVideoSlide');
   const startNote=document.getElementById('videoStartNote');
   document.body.classList.add('waiting-to-open');
+  const backgroundSong=document.getElementById('backgroundSong');
   tapOpen.addEventListener('click',()=>{
     openingVideo.currentTime=0;
+    backgroundSong.volume=0.8;
+    backgroundSong.play().catch(()=>{});
     openingVideo.play().then(()=>{
       tapOpen.style.display='none';
       startNote.style.display='none';
